@@ -20,3 +20,13 @@ export const likePost = async (formData: FormData) => {
   revalidatePath(`/blogs/${id}`)
   revalidatePath("/blogs")
 }
+
+export const searchByText = async (formData: FormData) => {
+  const searchText = formData.get("search") as string
+  if (!searchText) {
+    redirect("/blogs")
+  }
+  else {
+    redirect(`/blogs?search=${encodeURIComponent(searchText)}`)
+  }
+}
