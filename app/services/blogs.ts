@@ -1,5 +1,5 @@
 export interface Blog {
-    id: string;
+    id: number;
     title: string;
     author: string;
     url: string;
@@ -8,14 +8,14 @@ export interface Blog {
 
 const blogs: Blog[] = [
     {
-        id: '1',
+        id: 1,
         title: 'First Blog',
         author: 'John Doe',
         url: 'https://example.com/first-blog',
         likes: 10,
     },
     {
-        id: '2',
+        id: 2,
         title: 'Second Blog',
         author: 'Jane Doe',
         url: 'https://example.com/second-blog',
@@ -25,4 +25,15 @@ const blogs: Blog[] = [
 
 export function getBlogs(): Blog[] {
     return blogs;
+}
+
+export function addBlog(title: string, author: string, url: string): void {
+    const newBlog: Blog = {
+        id: blogs.length + 1,
+        title,
+        author,
+        url,
+        likes: 0,
+    };
+    blogs.push(newBlog);
 }
