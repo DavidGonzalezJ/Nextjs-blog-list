@@ -1,4 +1,4 @@
-export interface Blog {
+export type Blog = {
     id: number;
     title: string;
     author: string;
@@ -36,4 +36,15 @@ export function addBlog(title: string, author: string, url: string): void {
         likes: 0,
     };
     blogs.push(newBlog);
+}
+
+export function getBlogById(id: number): Blog | undefined {
+    return blogs.find(blog => blog.id === id);
+}
+
+export function likeBlog(id: number): void {
+    const blog = getBlogById(id);
+    if (blog) {
+        blog.likes += 1;
+    }
 }
