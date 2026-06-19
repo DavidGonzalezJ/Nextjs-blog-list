@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const Blogs = async ({searchParams}: {searchParams: Promise<{search?: string}>}) => {
   const { search } = await searchParams
-  let blogs = getBlogs()
+  let blogs = await getBlogs()
   if (search) {
     blogs = blogs.filter(blog => blog.title.toLowerCase().includes(search.toLowerCase()))
   }

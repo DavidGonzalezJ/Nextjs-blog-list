@@ -1,3 +1,7 @@
+import { eq } from "drizzle-orm"
+import { db } from "../../db"
+import { blogs } from "../../db/schema"
+
 export type Blog = {
     id: number;
     title: string;
@@ -6,45 +10,31 @@ export type Blog = {
     likes: number;
 }
 
-const blogs: Blog[] = [
-    {
-        id: 1,
-        title: 'First Blog',
-        author: 'John Doe',
-        url: 'https://example.com/first-blog',
-        likes: 10,
-    },
-    {
-        id: 2,
-        title: 'Second Blog',
-        author: 'Jane Doe',
-        url: 'https://example.com/second-blog',
-        likes: 20,
-    },
-];
-
-export function getBlogs(): Blog[] {
-    return blogs;
+export async function getBlogs(): Promise<Blog[]> {
+    return db.query.blogs.findMany();
 }
 
-export function addBlog(title: string, author: string, url: string): void {
-    const newBlog: Blog = {
-        id: blogs.length + 1,
+export async function addBlog(title: string, author: string, url: string): Promise<void> {
+    await db.insert(blogs).values({
         title,
         author,
         url,
         likes: 0,
-    };
-    blogs.push(newBlog);
+    });
 }
 
-export function getBlogById(id: number): Blog | undefined {
-    return blogs.find(blog => blog.id === id);
+export async function getBlogById(id: number): Promise<Blog | undefined> {
+    return db.query.blogs.findFirst({
+        where: eq(blogs.id, id),
+    });
 }
 
-export function likeBlog(id: number): void {
-    const blog = getBlogById(id);
+export async function likeBlog(id: number): Promise<void> {
+    const blog = await getBlogById(id);
     if (blog) {
-        blog.likes += 1;
+        await db.update(blogs)
+            .set({ likes: blog.likes + 1 })
+            .where(eq(blogs.id, id));
+
     }
 }
