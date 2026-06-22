@@ -1,4 +1,4 @@
-import { db } from "../../db";
+import { db } from "@/db";
 import { Blog } from "./blogs";
 
 export type user = {

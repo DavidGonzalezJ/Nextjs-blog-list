@@ -1,6 +1,7 @@
 import { eq, sql } from "drizzle-orm"
-import { db } from "../../db"
-import { blogs } from "../../db/schema"
+import { db } from "@/db"
+import { blogs } from "@/db/schema"
+import { getCurrentUser } from "./session";
 
 export type Blog = {
     id: number;
@@ -15,15 +16,13 @@ export async function getBlogs(): Promise<Blog[]> {
 }
 
 export async function addBlog(title: string, author: string, url: string): Promise<void> {
-    const user = await db.query.users.findFirst({
-        orderBy: sql`RANDOM()`,
-    });
+    const user = await getCurrentUser();
     await db.insert(blogs).values({
         title,
         author,
         url,
         likes: 0,
-        userId: user?.id || 1, // Assign a default user ID if no user is found
+        userId: user!.id,
     });
 }
 
