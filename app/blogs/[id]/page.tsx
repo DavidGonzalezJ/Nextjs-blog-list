@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation"
 import { getBlogById } from "../../services/blogs"
 import { likePost } from "../../actions/blogs"
+import PendingButton from "../../components/PendingButton"
+import AddToReadingListButton from "../../components/AddToReadingListButton"
 
 const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
@@ -34,13 +36,15 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           </span>
           <form action={likePost}>
             <input type="hidden" name="id" value={blog.id} />
-            <button
-              type="submit"
+            <PendingButton
+              pendingLabel="Liking..."
               className="bg-violet-600 hover:bg-violet-500 text-white px-5 py-1.5 rounded-full text-sm font-medium transition-colors"
+              pendingClassName="bg-violet-800 text-violet-300 px-5 py-1.5 rounded-full text-sm font-medium opacity-70 cursor-not-allowed"
             >
               👍 Like
-            </button>
+            </PendingButton>
           </form>
+          <AddToReadingListButton blogId={blog.id} />
         </div>
       </div>
     </div>

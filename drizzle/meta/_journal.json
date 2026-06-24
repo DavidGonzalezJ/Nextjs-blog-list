@@ -36,6 +36,13 @@
       "when": 1782313020976,
       "tag": "0005_sour_tenebrous",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1782315585953,
+      "tag": "0006_keen_baron_strucker",
+      "breakpoints": true
     }
   ]
 }
