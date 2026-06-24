@@ -1,10 +1,12 @@
 "use server"
 
 import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 import bcrypt from "bcryptjs"
 import { eq } from "drizzle-orm"
 import { db } from "@/db"
 import { users } from "@/db/schema"
+import { getCurrentUser } from "@/app/services/session"
 
 export const registerUser = async (prevState: {errors: {username?: string, name?: string, password?: string, passwordConfirm?: string}, values: {username: string, name: string, password: string}} ,
   formData: FormData) => {
@@ -41,4 +43,14 @@ export const registerUser = async (prevState: {errors: {username?: string, name?
   await db.insert(users).values({ username, name, passwordHash })
 
   redirect("/login")
+}
+
+export const generateToken = async () => {
+  const user = await getCurrentUser()
+  if (!user) redirect("/login")
+
+  const token = crypto.randomUUID()
+  await db.update(users).set({ token }).where(eq(users.id, user.id))
+
+  revalidatePath("/me")
 }

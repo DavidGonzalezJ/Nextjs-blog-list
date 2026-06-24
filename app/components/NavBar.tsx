@@ -34,9 +34,9 @@ export default function NavBar() {
               >
                 + new post
               </Link>
-              <span className="text-zinc-500 hidden sm:inline">
+              <Link href="/me" className="text-zinc-500 hidden sm:inline hover:text-violet-400 transition-colors">
                 <em className="text-zinc-300 not-italic">{session.user?.name}</em>
-              </span>
+              </Link>
               <button
                 onClick={() => signOut()}
                 className="text-zinc-400 hover:text-rose-400 transition-colors"
