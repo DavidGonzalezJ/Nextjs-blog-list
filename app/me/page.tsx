@@ -22,36 +22,36 @@ export default async function MePage() {
 
   return (
     <div className="max-w-2xl space-y-10">
-      <div>
+      <div data-testid="user-profile">
         <h1 className="text-3xl font-bold text-zinc-100 mb-6">My Profile</h1>
         <div className="space-y-2 text-zinc-300 text-sm">
           <p>
             <span className="text-zinc-500">Name:</span>{" "}
-            <span className="text-zinc-100">{user.name}</span>
+            <span className="text-zinc-100" data-testid="user-name">{user.name}</span>
           </p>
           <p>
             <span className="text-zinc-500">Username:</span>{" "}
-            <span className="text-zinc-100">{user.username}</span>
+            <span className="text-zinc-100" data-testid="user-username">{user.username}</span>
           </p>
         </div>
       </div>
 
       <hr className="border-zinc-800" />
 
-      <div className="space-y-4">
+      <div className="space-y-4" data-testid="reading-list-section">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-zinc-100">Reading List</h2>
           <span className="text-zinc-500 text-sm">{readingListEntries.length} saved</span>
         </div>
 
         {readingListEntries.length === 0 ? (
-          <p className="text-sm text-zinc-500 italic bg-zinc-900 border border-zinc-800 rounded-2xl px-6 py-8 text-center">
+          <p className="text-sm text-zinc-500 italic bg-zinc-900 border border-zinc-800 rounded-2xl px-6 py-8 text-center" data-testid="empty-reading-list">
             No blogs saved yet. Browse blogs and add them to your reading list.
           </p>
         ) : (
           <div className="space-y-6">
             {unread.length > 0 && (
-              <div className="space-y-3">
+              <div className="space-y-3" data-testid="unread-section">
                 <h3 className="text-sm font-medium text-zinc-400 uppercase tracking-wider">
                   Unread · {unread.length}
                 </h3>
@@ -84,6 +84,7 @@ export default async function MePage() {
                             <input type="hidden" name="entryId" value={entry.id} />
                             <PendingButton
                               pendingLabel="Saving..."
+                              data-testid={`mark-read-${entry.id}`}
                               className="text-xs text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 px-3 py-1 rounded-full transition-colors"
                               pendingClassName="text-xs text-emerald-600 bg-emerald-500/5 border border-emerald-500/10 px-3 py-1 rounded-full opacity-60 cursor-not-allowed"
                             >
@@ -96,6 +97,10 @@ export default async function MePage() {
                   ))}
                 </ul>
               </div>
+            )}
+
+            {unread.length === 0 && (
+              <p className="text-sm text-zinc-500 italic" data-testid="no-unread-blogs">All blogs read.</p>
             )}
 
             {read.length > 0 && (
@@ -131,21 +136,22 @@ export default async function MePage() {
 
       <hr className="border-zinc-800" />
 
-      <div className="space-y-4">
+      <div className="space-y-4" data-testid="api-token-section">
         <h2 className="text-xl font-semibold text-zinc-100">API Token</h2>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-3">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-3" data-testid="token-display">
           <p className="text-sm text-zinc-400">Current token:</p>
           {user.token ? (
-            <p className="font-mono text-sm text-violet-300 break-all select-all bg-zinc-800 rounded-lg px-3 py-2">
+            <p className="font-mono text-sm text-violet-300 break-all select-all bg-zinc-800 rounded-lg px-3 py-2" data-testid="api-token">
               {user.token}
             </p>
           ) : (
-            <p className="text-sm text-zinc-600 italic">No token generated yet.</p>
+            <p className="text-sm text-zinc-600 italic" data-testid="no-token-message">No token generated yet.</p>
           )}
         </div>
         <form action={generateToken}>
           <button
             type="submit"
+            data-testid="generate-token-button"
             className="bg-violet-600 hover:bg-violet-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-colors"
           >
             Generate New Token

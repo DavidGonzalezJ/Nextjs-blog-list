@@ -20,19 +20,21 @@ const Blogs = async ({searchParams}: {searchParams: Promise<{search?: string}>})
         <input
           name="search"
           type="search"
+          data-testid="filter-input"
           placeholder="Search blogs..."
           defaultValue={search}
           className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
         />
         <button
           type="submit"
+          data-testid="search-button"
           className="bg-violet-600 hover:bg-violet-500 text-white px-5 py-2.5 rounded-xl font-medium transition-colors"
         >
           Search
         </button>
       </form>
 
-      <ul className="space-y-3">
+      <ul className="space-y-3" data-testid="blogs-list">
         {sortedBlogs.map(blog => (
           <li
             key={blog.id}
@@ -57,7 +59,7 @@ const Blogs = async ({searchParams}: {searchParams: Promise<{search?: string}>})
                 </a>
               </div>
               <span className="shrink-0 flex items-center gap-1.5 bg-zinc-800 text-zinc-300 text-sm rounded-full px-3 py-1">
-                ❤️ {blog.likes}
+                ❤️ {blog.likes} likes
               </span>
             </div>
           </li>

@@ -14,11 +14,11 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="max-w-2xl">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 space-y-4">
-        <h2 className="text-3xl font-bold text-zinc-100 leading-tight">{blog.title}</h2>
+      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 space-y-4" data-testid="blog-detail">
+        <h2 className="text-3xl font-bold text-zinc-100 leading-tight" data-testid="blog-title">{blog.title}</h2>
 
         <p className="text-zinc-400">
-          by <span className="text-zinc-200 font-medium">{blog.author}</span>
+          by <span className="text-zinc-200 font-medium" data-testid="blog-author">{blog.author}</span>
         </p>
 
         <a

@@ -24,7 +24,7 @@ export default function RegisterPage() {
               defaultValue={state.values.username}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
             />
-            {state.errors.username && <p className="text-rose-400 text-sm">{state.errors.username}</p>}
+            {state.errors.username && <p className="text-rose-400 text-sm" data-testid="username-error">{state.errors.username}</p>}
           </div>
 
           <div className="space-y-1">
@@ -66,11 +66,12 @@ export default function RegisterPage() {
               required
               className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
             />
-            {state.errors.passwordConfirm && <p className="text-rose-400 text-sm">{state.errors.passwordConfirm}</p>}
+            {state.errors.passwordConfirm && <p className="text-rose-400 text-sm" data-testid="passwordConfirm-error">{state.errors.passwordConfirm}</p>}
           </div>
 
           <button
             type="submit"
+            data-testid="register-button"
             className="w-full bg-violet-600 hover:bg-violet-500 text-white py-2.5 rounded-xl font-semibold transition-colors mt-2"
           >
             Register

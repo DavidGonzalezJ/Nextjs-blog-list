@@ -2,14 +2,13 @@
 
 import { useFormStatus } from "react-dom"
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   pendingLabel: string
-  className?: string
   pendingClassName?: string
 }
 
-export default function PendingButton({ children, pendingLabel, className, pendingClassName }: Props) {
+export default function PendingButton({ children, pendingLabel, className, pendingClassName, ...rest }: Props) {
   const { pending } = useFormStatus()
 
   return (
@@ -17,6 +16,7 @@ export default function PendingButton({ children, pendingLabel, className, pendi
       type="submit"
       disabled={pending}
       className={pending ? (pendingClassName ?? className) : className}
+      {...rest}
     >
       {pending ? pendingLabel : children}
     </button>

@@ -20,6 +20,7 @@ export default function AddToReadingListButton({ blogId }: { blogId: number }) {
       <input type="hidden" name="blogId" value={blogId} />
       <PendingButton
         pendingLabel="Saving..."
+        data-testid="add-to-reading-list-button"
         className="bg-zinc-700 hover:bg-zinc-600 text-zinc-200 px-5 py-1.5 rounded-full text-sm font-medium transition-colors"
         pendingClassName="bg-zinc-800 text-zinc-500 px-5 py-1.5 rounded-full text-sm font-medium opacity-70 cursor-not-allowed"
       >

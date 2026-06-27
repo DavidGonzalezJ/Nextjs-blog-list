@@ -72,9 +72,10 @@ const NewBlog = () => {
 
           <button
             type="submit"
+            data-testid="create-blog-button"
             className="w-full bg-violet-600 hover:bg-violet-500 text-white py-2.5 rounded-xl font-semibold transition-colors mt-2"
           >
-            Publish
+            Create
           </button>
         </form>
       </div>
