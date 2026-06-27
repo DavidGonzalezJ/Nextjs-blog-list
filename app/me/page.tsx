@@ -8,6 +8,8 @@ import { db } from "@/db"
 import { readingList } from "@/db/schema"
 import PendingButton from "@/app/components/PendingButton"
 
+export const dynamic = "force-dynamic"
+
 export default async function MePage() {
   const user = await getCurrentUser()
   if (!user) redirect("/login")

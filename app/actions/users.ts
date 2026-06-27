@@ -1,6 +1,7 @@
 "use server"
 
 import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 import bcrypt from "bcryptjs"
 import { eq } from "drizzle-orm"
 import { db } from "@/db"
@@ -51,5 +52,5 @@ export const generateToken = async () => {
   const token = crypto.randomUUID()
   await db.update(users).set({ token }).where(eq(users.id, user.id))
 
-  redirect("/me")
+  revalidatePath("/me")
 }
