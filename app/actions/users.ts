@@ -45,7 +45,7 @@ export const registerUser = async (prevState: {errors: {username?: string, name?
   redirect("/login")
 }
 
-export const generateToken = async () => {
+export const generateToken = async (prevState: string | null, formData: FormData) => {
   const user = await getCurrentUser()
   if (!user) redirect("/login")
 
@@ -53,4 +53,5 @@ export const generateToken = async () => {
   await db.update(users).set({ token }).where(eq(users.id, user.id))
 
   revalidatePath("/me")
+  return token
 }

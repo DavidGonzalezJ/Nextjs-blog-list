@@ -2,11 +2,11 @@ import { redirect } from "next/navigation"
 import { eq } from "drizzle-orm"
 import Link from "next/link"
 import { getCurrentUser } from "@/app/services/session"
-import { generateToken } from "@/app/actions/users"
 import { markAsRead } from "@/app/actions/blogs"
 import { db } from "@/db"
 import { readingList } from "@/db/schema"
 import PendingButton from "@/app/components/PendingButton"
+import TokenSection from "@/app/components/TokenSection"
 
 export const dynamic = "force-dynamic"
 
@@ -138,28 +138,7 @@ export default async function MePage() {
 
       <hr className="border-zinc-800" />
 
-      <div className="space-y-4" data-testid="api-token-section">
-        <h2 className="text-xl font-semibold text-zinc-100">API Token</h2>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-3" data-testid="token-display">
-          <p className="text-sm text-zinc-400">Current token:</p>
-          {user.token ? (
-            <p className="font-mono text-sm text-violet-300 break-all select-all bg-zinc-800 rounded-lg px-3 py-2" data-testid="api-token">
-              {user.token}
-            </p>
-          ) : (
-            <p className="text-sm text-zinc-600 italic" data-testid="no-token-message">No token generated yet.</p>
-          )}
-        </div>
-        <form action={generateToken}>
-          <button
-            type="submit"
-            data-testid="generate-token-button"
-            className="bg-violet-600 hover:bg-violet-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-colors"
-          >
-            Generate New Token
-          </button>
-        </form>
-      </div>
+      <TokenSection initialToken={user.token ?? null} />
     </div>
   )
 }
